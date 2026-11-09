@@ -3,17 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Preston Frazier — Portfolio 2026</title>
-<meta name="description" content="Preston Frazier — Computer Science major at Howard University, UX/UI designer, front-end developer and founder of REVEL.">
+<title>Preston Frazier — Product Designer × Creative Developer</title>
+<meta name="description" content="Preston Frazier — Product Designer, Creative Developer and founder of REVEL. Computer Science at Howard University. Case studies in UX/UI, Android, AI and brand design.">
+<meta property="og:title" content="Preston Frazier — Product Designer × Creative Developer × Founder">
+<meta property="og:description" content="Designing experiences. Building what's next. Case studies in product design, UX/UI, Android and brand building.">
+<meta property="og:image" content="https://pfrazier2x.github.io/assets/revel-4.jpg">
+<meta name="theme-color" content="#0b0b0b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800;900&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=12">
-<script>if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("js")</script>
+<link rel="preload" as="image" href="assets/portrait.jpg">
+<link rel="stylesheet" href="styles.css?v=14">
+<script>if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("js");try{if(sessionStorage.getItem("pf-intro"))document.documentElement.classList.add("seen")}catch(e){}</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<!-- Preloader -->
+<!-- Preloader (first visit per session only) -->
 <div class="loader" aria-hidden="true">
   <div class="loader__inner">
     <div class="loader__mark"><span>P</span><span>F</span></div>
@@ -28,89 +34,121 @@
 
 <!-- Nav -->
 <header class="nav">
-  <a href="#top" class="nav__logo" data-magnetic>PF<span>©26</span></a>
-  <nav class="nav__links">
-    <a href="#about" data-hover>About</a>
-    <a href="#skills" data-hover>Skills</a>
-    <a href="#work" data-hover>Work</a>
-    <a href="#code" data-hover>Code</a>
-    <a href="#contact" data-hover>Contact</a>
+  <a href="#top" class="nav__logo" data-magnetic aria-label="Preston Frazier — back to top">PF<span>©26</span></a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="#work" data-hover data-nav="work">Work</a>
+    <a href="#about" data-hover data-nav="about">About</a>
+    <a href="#skills" data-hover data-nav="skills">Skills</a>
+    <a href="#code" data-hover data-nav="code">Code</a>
+    <a href="#contact" data-hover data-nav="contact">Contact</a>
   </nav>
-  <a class="btn btn--pill nav__cta" href="resume.pdf" target="_blank" rel="noopener" data-magnetic>Resume</a>
-  <button class="nav__burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+  <a class="btn btn--pill nav__cta" href="resume.pdf" download="Preston-Frazier-Resume.pdf" data-magnetic>Résumé ↓</a>
+  <button class="nav__burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
 </header>
-<div class="menu" aria-hidden="true">
-  <a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#code">Code</a><a href="#contact">Contact</a><a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
-</div>
+<nav class="menu" id="menu" aria-label="Mobile" inert>
+  <a href="#work">Work</a><a href="#about">About</a><a href="#skills">Skills</a><a href="#code">Code</a><a href="#contact">Contact</a><a href="resume.pdf" download="Preston-Frazier-Resume.pdf">Résumé ↓</a>
+</nav>
 
-<main id="top">
+<main id="main">
+  <span id="top"></span>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero__slab"></div>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__slab" aria-hidden="true"></div>
     <div class="hero__grid">
       <div class="hero__copy">
-        <p class="eyebrow hero__hi"><span class="dot"></span> Hi, I am</p>
-        <h1 class="hero__title">
-          <span class="line"><span class="split">Preston</span></span>
-          <span class="line"><span class="split">Frazier<em>.</em></span></span>
+        <p class="eyebrow hero__hi"><span class="dot" aria-hidden="true"></span> Hi, I'm Preston Frazier</p>
+        <h1 class="hero__title" id="hero-title">
+          <span class="line"><span class="split">Designing</span></span>
+          <span class="line"><span class="split">experiences.</span></span>
+          <span class="line"><span class="split">Building</span></span>
+          <span class="line"><span class="split">what's next<em>.</em></span></span>
         </h1>
-        <p class="hero__role reveal-up">Computer Science Major&nbsp;<b>/</b>&nbsp;UX/UI Designer&nbsp;<b>/</b>&nbsp;Founder of REVEL</p>
-        <p class="hero__school reveal-up">Howard University · College of Engineering and Architecture (CEA) · B.S. Computer Science, May 2027</p>
-        <ul class="hero__links reveal-up">
-          <li><a href="https://github.com/pfrazier2x" target="_blank" rel="noopener" data-hover>github.com/pfrazier2x</a></li>
+        <p class="hero__role reveal-up">Product Designer <b aria-hidden="true">×</b> Creative Developer <b aria-hidden="true">×</b> Founder</p>
+        <p class="hero__intro reveal-up">Computer Science student at <strong>Howard University</strong> (B.S., May 2027) designing and building digital products — from UX research and interface design to Android apps, AI prototypes, and my streetwear brand, <strong>REVEL</strong>.</p>
+        <div class="hero__ctas reveal-up">
+          <a class="btn btn--solid" href="#work" data-magnetic>View selected work <span aria-hidden="true">↓</span></a>
+          <a class="btn btn--outline" href="resume.pdf" download="Preston-Frazier-Resume.pdf" data-magnetic>Download résumé</a>
+        </div>
+        <ul class="hero__links reveal-up" aria-label="Profiles">
+          <li><a href="https://github.com/pfrazier2x" target="_blank" rel="noopener" data-hover>GitHub</a></li>
           <li><a href="https://www.linkedin.com/in/preston-frazier-0b9a8a2a9/" target="_blank" rel="noopener" data-hover>LinkedIn</a></li>
           <li><a href="mailto:pdfrazier2x@gmail.com" data-hover>pdfrazier2x@gmail.com</a></li>
         </ul>
       </div>
       <div class="hero__media">
-        <div class="hero__frame"><img src="assets/portrait.png" alt="Portrait of Preston Frazier" class="hero__img"></div>
-        <div class="hero__badge" aria-hidden="true">
-          <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
-            <text><textPath href="#circ">UX/UI DESIGN · FRONT-END · BRANDING · PHOTOGRAPHY · </textPath></text></svg>
-          <span>↓</span>
-        </div>
+        <div class="hero__frame"><img src="assets/portrait.jpg" alt="Portrait of Preston Frazier" class="hero__img" width="652" height="851" fetchpriority="high"></div>
+        <a class="hero__badge" href="#work" aria-label="Scroll to selected work">
+          <svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="circ" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+            <text><textPath href="#circ">PRODUCT DESIGN · UX/UI · ANDROID · BRANDING · </textPath></text></svg>
+          <span aria-hidden="true">↓</span>
+        </a>
       </div>
     </div>
-    <div class="hero__scroll">Scroll</div>
   </section>
 
   <!-- MARQUEE -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee__track">
-      <span>UX/UI Design</span><i>✦</i><span>Front-End Dev</span><i>✦</i><span>Brand Identity</span><i>✦</i><span>Photography</span><i>✦</i><span>Streetwear</span><i>✦</i>
-      <span>UX/UI Design</span><i>✦</i><span>Front-End Dev</span><i>✦</i><span>Brand Identity</span><i>✦</i><span>Photography</span><i>✦</i><span>Streetwear</span><i>✦</i>
+      <span>Product Design</span><i>✦</i><span>UX/UI</span><i>✦</i><span>Creative Development</span><i>✦</i><span>Brand Identity</span><i>✦</i><span>Streetwear</span><i>✦</i>
+      <span>Product Design</span><i>✦</i><span>UX/UI</span><i>✦</i><span>Creative Development</span><i>✦</i><span>Brand Identity</span><i>✦</i><span>Streetwear</span><i>✦</i>
     </div>
   </div>
 
+  <!-- SELECTED WORK -->
+  <section class="work section" id="work" aria-labelledby="work-title">
+    <p class="label-box reveal-up" aria-hidden="true"><span>Portfolio</span></p>
+    <div class="work__head">
+      <h2 class="big-title" id="work-title"><span class="line"><span class="split">Selected</span></span><span class="line"><span class="split">work <em id="feat-count"></em></span></span></h2>
+      <p class="work__note reveal-up">Case studies across product design, UX/UI, Android and brand building — what the problem was, what I did, and what shipped.</p>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <!-- CASE STUDIES (rendered from data in main.js) -->
+  <div id="cases"></div>
+
+  <!-- MORE WORK -->
+  <section class="more section" id="more" aria-labelledby="more-title">
+    <p class="label-box reveal-up" aria-hidden="true"><span>Archive</span></p>
+    <h2 class="big-title" id="more-title"><span class="line"><span class="split">More</span></span><span class="line"><span class="split">work <em id="more-count"></em></span></span></h2>
+    <p class="work__note reveal-up">Brand identities, logos, photography and campaign design.</p>
+    <ol class="index" id="index"></ol>
+  </section>
+  <div id="projects"></div>
+
   <!-- ABOUT -->
-  <section class="about section" id="about">
-    <div class="label-box reveal-up"><span>About me</span></div>
-    <p class="about__lead scrub-words">I'm an energetic and driven Computer Science major at Howard University's College of Engineering and Architecture with a strong passion for UX/UI design, front-end development, and software engineering. As the Founder and CEO of REVEL, a streetwear brand, I've built skills in graphic design, branding, and web development while managing product design and e-commerce.</p>
-    <p class="about__body reveal-up">I've gained hands-on experience through UX design internships, collaborating with cross-functional teams to create accessible, user-friendly digital products. With expertise in Figma, Adobe Creative Suite, and GitHub, and programming knowledge in Python, Java, JavaScript, and C++, I enjoy solving problems through both technical and creative approaches — and I'm eager to apply my skills to real-world projects that combine technology and visual storytelling.</p>
+  <section class="about section" id="about" aria-labelledby="about-title">
+    <h2 class="label-box reveal-up" id="about-title"><span>About me</span></h2>
+    <p class="about__lead scrub-words">I'm a Computer Science student at Howard University who lives where design meets engineering — turning ideas into products people genuinely enjoy using.</p>
+    <div class="about__cols">
+      <p class="reveal-up">I came to product design by building things of my own. Founding REVEL my freshman year taught me how an idea becomes a product: knowing who it's for, shaping the brand, designing every piece, and getting it to launch.</p>
+      <p class="reveal-up">Internships at Nybble Group and VDart brought that mindset into UX — designing accessible features for children with disabilities and interfaces for an AI-powered résumé platform, alongside designers, developers and product teams.</p>
+      <p class="reveal-up">As a Figma Campus Leader, I launched the first HBCU chapter at Howard and run workshops that help other students grow as designers. I'm looking for opportunities in product design, UI/UX, front-end development and creative technology — especially teams building AI-powered products.</p>
+    </div>
 
     <div class="services">
       <article class="service tilt">
         <span class="service__n">01</span>
-        <h3>Skills</h3>
-        <p>UX/UI Design · Brand Identity Development · Creative Direction · Graphic Design · Visual Storytelling · Digital Marketing · Social Media Management · Public Relations · Photography · Video Editing · Community Outreach · Cross-Functional Collaboration · Leadership &amp; Mentorship</p>
+        <h3>Start with people</h3>
+        <p>Every project begins with who it's for — their needs, their context, and what would make the experience feel effortless.</p>
       </article>
       <article class="service tilt">
         <span class="service__n">02</span>
-        <h3>Software</h3>
-        <p>Figma · Framer · Adobe Creative Cloud · Photoshop · Illustrator · Lightroom · Adobe XD · Procreate · GitHub · Visual Studio Code · Zeplin · Slack · Google Suite</p>
+        <h3>Design &amp; build</h3>
+        <p>I move between the canvas and the code, so I can take an idea from research and wireframes to a working prototype.</p>
       </article>
       <article class="service tilt">
         <span class="service__n">03</span>
-        <h3>Programming</h3>
-        <p>Python · Java · JavaScript · C++ · React · Tailwind CSS · HTML5 · CSS / Sass · MySQL</p>
+        <h3>Think like a founder</h3>
+        <p>Running REVEL taught me to balance creative ambition with real-world constraints, deadlines and launch dates.</p>
       </article>
     </div>
   </section>
 
   <!-- SKILLS -->
-  <section class="skills section" id="skills">
-    <div class="label-box reveal-up"><span>Skills &amp; Expertise</span></div>
+  <section class="skills section" id="skills" aria-labelledby="skills-title">
+    <h2 class="label-box reveal-up" id="skills-title"><span>Skills &amp; Expertise</span></h2>
     <p class="skills__intro reveal-up">From research and concept to design, development, and launch. I combine design thinking, front-end engineering, and user-centered problem-solving to take digital products from idea to release.</p>
 
     <ul class="xp reveal-up" aria-label="Experience">
@@ -127,65 +165,51 @@
       <div class="logos" id="logos"></div>
     </div>
 
-    <div class="sub">
-      <h3 class="sub__head reveal-up"><span class="sub__n">02</span>Product Design &amp; UX</h3>
-      <ol class="ux" id="ux"></ol>
-    </div>
-
     <div class="sub" id="toolkit">
-      <h3 class="sub__head reveal-up"><span class="sub__n">03</span>Toolkit</h3>
+      <h3 class="sub__head reveal-up"><span class="sub__n">02</span>Toolkit</h3>
       <div class="kit" id="kit"></div>
     </div>
 
     <div class="stats">
-      <div class="stat"><b data-count="4">0</b><span>Sold-out REVEL collection drops</span></div>
-      <div class="stat"><b data-count="13">0</b><span>Design &amp; development projects shipped</span></div>
-      <div class="stat"><b data-count="4">0</b><span>Professional certifications · Google, Meta, Adobe</span></div>
-      <div class="stat"><b data-count="2">0</b><span>Design &amp; development internships</span></div>
+      <div class="stat"><b data-count="4">4</b><span>Sold-out REVEL drops</span></div>
+      <div class="stat"><b data-count="13">13</b><span>Featured projects</span></div>
+      <div class="stat"><b data-count="4">4</b><span>Professional certificates</span></div>
+      <div class="stat"><b data-count="2">2</b><span>Design &amp; development internships</span></div>
     </div>
   </section>
 
-  <!-- WORK INDEX -->
-  <section class="work section" id="work">
-    <div class="label-box reveal-up"><span>Portfolio</span></div>
-    <h2 class="big-title"><span class="line"><span class="split">Selected</span></span><span class="line"><span class="split">work <em>(13)</em></span></span></h2>
-    <ol class="index" id="index"></ol>
-  </section>
-
-  <!-- PROJECTS (rendered by JS from data below; noscript fallback not needed for a portfolio) -->
-  <div id="projects"></div>
-
   <!-- GITHUB -->
-  <section class="code section" id="code">
-    <div class="label-box reveal-up"><span>Code</span></div>
+  <section class="code section" id="code" aria-labelledby="code-title">
+    <p class="label-box reveal-up" aria-hidden="true"><span>Code</span></p>
     <div class="code__head">
-      <h2 class="big-title"><span class="line"><span class="split">On</span></span><span class="line"><span class="split">GitHub <em id="repo-count"></em></span></span></h2>
-      <p class="code__note reveal-up">Android apps in Kotlin, Python, coursework and experiments. This list loads live from my GitHub, so new repos show up automatically.</p>
+      <h2 class="big-title" id="code-title"><span class="line"><span class="split">On</span></span><span class="line"><span class="split">GitHub <em id="repo-count"></em></span></span></h2>
+      <p class="code__note reveal-up">Android apps in Kotlin, Python and AI coursework, and experiments. This list loads live from my GitHub, so new repos show up automatically.</p>
     </div>
     <div class="repos" id="repos"></div>
     <a class="btn btn--pill code__all" href="https://github.com/pfrazier2x?tab=repositories" target="_blank" rel="noopener" data-magnetic>View all on GitHub ↗</a>
   </section>
 
   <!-- CERTIFICATIONS -->
-  <section class="certs section" id="certs">
-    <div class="label-box reveal-up"><span>Certifications</span></div>
+  <section class="certs section" id="certs" aria-labelledby="certs-title">
+    <h2 class="label-box reveal-up" id="certs-title"><span>Certifications</span></h2>
     <p class="certs__copy reveal-up">In July 2025 I earned the <b>Google UX Design Professional Certificate</b>, developing end-to-end design solutions with a user-centered approach. I also completed <b>Adobe Design Fundamentals with AI</b>, plus Meta's <b>Fundamentals of Social Media Advertising</b> and <b>Introduction to Social Media Marketing</b>.</p>
-    <div class="certs__grid">
-      <figure class="cert tilt" data-img><img src="assets/cert-1.png" alt="Adobe Design Fundamentals with AI certificate" loading="lazy"></figure>
-      <figure class="cert tilt" data-img><img src="assets/cert-2.png" alt="Meta Fundamentals of Social Media Advertising certificate" loading="lazy"></figure>
-      <figure class="cert tilt" data-img><img src="assets/cert-3.png" alt="Google UX Design Professional Certificate" loading="lazy"></figure>
-      <figure class="cert tilt" data-img><img src="assets/cert-4.png" alt="Meta Introduction to Social Media Marketing certificate" loading="lazy"></figure>
+    <div class="certs__grid" data-gallery="certs">
+      <button class="cert tilt" data-img type="button"><img src="assets/cert-1.jpg" alt="Adobe Design Fundamentals with AI certificate" loading="lazy" decoding="async" width="466" height="360"></button>
+      <button class="cert tilt" data-img type="button"><img src="assets/cert-2.jpg" alt="Meta Fundamentals of Social Media Advertising certificate" loading="lazy" decoding="async" width="466" height="360"></button>
+      <button class="cert tilt" data-img type="button"><img src="assets/cert-3.jpg" alt="Google UX Design Professional Certificate" loading="lazy" decoding="async" width="466" height="360"></button>
+      <button class="cert tilt" data-img type="button"><img src="assets/cert-4.jpg" alt="Meta Introduction to Social Media Marketing certificate" loading="lazy" decoding="async" width="466" height="360"></button>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section class="contact" id="contact">
-    <p class="eyebrow reveal-up">Have a project in mind?</p>
-    <h2 class="contact__title"><span class="line"><span class="split">Let's build</span></span><span class="line"><span class="split">something <em>bold.</em></span></span></h2>
-    <a class="contact__mail" href="mailto:pdfrazier2x@gmail.com" data-magnetic><span>pdfrazier2x@gmail.com</span><i>↗</i></a>
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <p class="eyebrow reveal-up">Open to internships &amp; full-time roles · Washington, DC</p>
+    <h2 class="contact__title" id="contact-title"><span class="line"><span class="split">Let's build</span></span><span class="line"><span class="split">something <em>bold.</em></span></span></h2>
+    <a class="contact__mail" href="mailto:pdfrazier2x@gmail.com" data-magnetic><span>pdfrazier2x@gmail.com</span><i aria-hidden="true">↗</i></a>
     <div class="contact__row">
-      <a href="https://github.com/pfrazier2x" target="_blank" rel="noopener" data-hover>GitHub</a>
       <a href="https://www.linkedin.com/in/preston-frazier-0b9a8a2a9/" target="_blank" rel="noopener" data-hover>LinkedIn</a>
+      <a href="https://github.com/pfrazier2x" target="_blank" rel="noopener" data-hover>GitHub</a>
+      <a href="resume.pdf" download="Preston-Frazier-Resume.pdf" data-hover>Résumé ↓</a>
       <a href="https://www.instagram.com/r3v3l.us/" target="_blank" rel="noopener" data-hover>@r3v3l.us</a>
       <a href="#top" class="totop" data-hover>Back to top ↑</a>
     </div>
@@ -193,12 +217,20 @@
   </section>
 </main>
 
+<!-- Back to top -->
+<a class="fab-top" href="#top" aria-label="Back to top"><span aria-hidden="true">↑</span></a>
+
 <!-- Lightbox -->
-<div class="lightbox" aria-hidden="true"><button class="lightbox__close" aria-label="Close">×</button><img alt=""></div>
+<div class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true" inert>
+  <button class="lightbox__close" type="button" aria-label="Close image viewer">×</button>
+  <button class="lightbox__nav lightbox__prev" type="button" aria-label="Previous image">←</button>
+  <figure class="lightbox__fig"><img alt=""><figcaption class="lightbox__cap"></figcaption></figure>
+  <button class="lightbox__nav lightbox__next" type="button" aria-label="Next image">→</button>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="main.js?v=12"></script>
+<script src="main.js?v=14"></script>
 </body>
 </html>
