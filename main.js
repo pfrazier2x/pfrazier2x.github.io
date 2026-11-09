@@ -176,7 +176,7 @@ document.getElementById("kit").innerHTML = KIT.map(([title, keys, learning]) => 
 
 /* ---------- GitHub repos (live, with a built-in fallback) ---------- */
 const GH_USER = "pfrazier2x";
-const GH_SKIP = ["readme.txt"];
+const GH_SKIP = ["readme.txt", "pfrazier2x.github.io"];
 const GH_FEATURED = "FlixsterPlus";
 const LANG_COLORS = { Kotlin: "#A97BFF", Python: "#3572A5", HTML: "#E34C26", JavaScript: "#F1E05A", Java: "#B07219", "C++": "#F34B7D", TypeScript: "#3178C6", CSS: "#563D7C" };
 const NICE = {
