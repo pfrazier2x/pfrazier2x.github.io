@@ -603,3 +603,31 @@ button.reel__item{width:clamp(220px,24vw,380px)}
 /* v15 — Loop-Hole board inside its case study */
 .cs__chess{position:relative;width:100%;aspect-ratio:16/5;margin:0 0 clamp(36px,5vw,64px);border-radius:6px;overflow:hidden;border:1px solid var(--line)}
 @media (max-width:760px){.cs__chess{aspect-ratio:4/3}}
+
+/* v17 — transparent cut-out portrait standing on the black panel */
+.hero{overflow:hidden}
+.hero__media{position:absolute;right:clamp(16px,5vw,110px);bottom:0;width:auto;height:min(90%,960px);display:flex;align-items:flex-end;justify-self:auto}
+.hero__frame{position:relative;height:100%;aspect-ratio:720/1241;overflow:visible;background:none;border-radius:0}
+.hero__frame picture{display:block;height:100%}
+.hero__img{display:block;width:100%;height:100%;object-fit:contain;object-position:bottom;filter:grayscale(1) contrast(1.06) drop-shadow(0 30px 60px rgba(0,0,0,.55));transition:filter .8s}
+.hero__frame:hover .hero__img{filter:grayscale(0) drop-shadow(0 30px 60px rgba(0,0,0,.55))}
+.hero__badge{left:-70px;bottom:auto;top:52%}
+.hero__grid{grid-template-columns:1fr;max-width:62%;position:static}
+.hero__copy{max-width:none}
+/* outlined type: hide the font's internal overlap lines */
+.marquee__track span:nth-of-type(even){color:var(--bg);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill}
+.project__num{color:var(--bg);-webkit-text-stroke:3px rgba(243,241,236,.25);paint-order:stroke fill}
+@media (max-width:1024px){
+  .hero__grid{max-width:66%}
+  .hero__media{right:-4vw;height:min(72%,760px)}
+}
+@media (max-width:760px){
+  .hero{padding-bottom:0;flex-direction:column;align-items:stretch}
+  .hero__grid{max-width:none}
+  .hero__media{position:relative;right:auto;bottom:auto;height:auto;width:86%;margin:8px auto 0;justify-content:center}
+  .hero__frame{height:auto;width:100%}
+  .hero__frame picture{height:auto}
+  .hero__img{height:auto}
+  .hero__slab{clip-path:polygon(0 calc(100% - 300px),100% calc(100% - 440px),100% 100%,0 100%)}
+  .hero__badge{left:auto;right:-12px;top:30%;width:96px;height:96px}
+}

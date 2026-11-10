@@ -7,7 +7,7 @@
 
 /* ---------- assets ---------- */
 const JPG = new Set([
-  "portrait", "brittian-2", "nybble-2", "nybble-3", "nybble-4", "nybble-5", "revel-4", "revel-5", "revel-6", "revel-7",
+  "brittian-2", "nybble-2", "nybble-3", "nybble-4", "nybble-5", "revel-4", "revel-5", "revel-6", "revel-7",
   "stacks-2", "tlc-2", "vdart-4", "husa-1", "husa-2", "husa-3", "husa-4", "husa-5", "husa-6",
   "photo-1", "photo-2", "photo-3", "photo-4", "photo-5", "photo-6", "photo-7", "photo-8", "photo-9",
   "flyer-1", "flyer-2", "flyer-3", "flyer-4", "cp-flixsterplus", "cp-flixster", "cp-wishlist", "cp-wordle",
@@ -648,13 +648,13 @@ function initMotion() {
     .from(".hero__slab", { clipPath: "polygon(100% 0,100% 0,100% 100%,100% 100%)", duration: 1.2, ease: "expo.inOut" }, "hero")
     .from(".hero__title .char", { yPercent: 110, rotate: 6, stagger: 0.018, duration: 1, ease: "expo.out" }, "hero+=0.2")
     .from(".hero__frame", { clipPath: "inset(100% 0 0 0)", duration: 1.2, ease: "expo.inOut" }, "hero+=0.1")
-    .from(".hero__img", { scale: 1.3, duration: 1.6, ease: "expo.out" }, "hero+=0.3")
+    .from(".hero__img", { yPercent: 18, opacity: 0, duration: 1.6, ease: "expo.out" }, "hero+=0.3")
     .from(".hero__hi, .hero .reveal-up", { y: 24, opacity: 0, stagger: 0.07, duration: 0.8, ease: "power3.out" }, "hero+=0.5")
     .from(".nav > *", { y: -24, opacity: 0, stagger: 0.05, duration: 0.7, ease: "power3.out" }, "hero+=0.4")
     .from(".hero__badge", { scale: 0, rotate: -90, duration: 0.9, ease: "back.out(1.6)" }, "hero+=0.8");
 
   /* hero parallax */
-  gsap.to(".hero__img", { yPercent: -10, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  gsap.to(".hero__img", { yPercent: 8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 
   /* marquee — direction follows scroll */
   const track = document.querySelector(".marquee__track");
