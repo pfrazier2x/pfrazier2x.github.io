@@ -599,3 +599,7 @@ button.reel__item{width:clamp(220px,24vw,380px)}
 @media (prefers-reduced-motion:reduce){
   .card:hover,.card:hover .card__media img,.shot:hover img{transform:none!important}
 }
+
+/* v15 — Loop-Hole board inside its case study */
+.cs__chess{position:relative;width:100%;aspect-ratio:16/5;margin:0 0 clamp(36px,5vw,64px);border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+@media (max-width:760px){.cs__chess{aspect-ratio:4/3}}

@@ -265,26 +265,20 @@ const linksHTML = (links) => (links || []).map((l) => `<a class="project__link" 
 const tagsHTML = (arr, cls = "chiplet") => `<ul class="${cls}s">${arr.map((t) => `<li class="${cls}">${t}</li>`).join("")}</ul>`;
 const chessHTML = () => `<div class="chess" aria-hidden="true">${Array.from({ length: 64 }, (_, i) => `<i class="${(Math.floor(i / 8) + i) % 2 ? "d" : ""}"></i>`).join("")}<span>♞</span></div>`;
 
-/* ---------- selected work cards ---------- */
-document.getElementById("feat-count").textContent = `(${pad(CASES.length)})`;
-document.getElementById("cards").innerHTML = CASES.map((c, i) => {
-  const cover = c.chess ? chessHTML()
-    : `<img src="${A(c.cover)}" alt="${esc(c.coverAlt || c.title)}" loading="lazy" decoding="async" class="${c.coverFit ? "fit" : ""}">`;
-  return `<a class="card${i === 0 ? " card--lead" : ""}" href="#${c.id}" data-hover>
-    <div class="card__media${c.coverDark || c.chess ? " is-dark" : ""}${c.coverFit ? " is-contain" : ""}">${cover}</div>
-    <div class="card__body">
-      <div class="card__top"><span class="card__n">${pad(i + 1)}</span><span class="card__cat">${c.category}</span></div>
-      <h3 class="card__title">${c.title}</h3>
-      <p class="card__role">${c.role}</p>
-      ${tagsHTML(c.focus.slice(0, 4))}
-      <span class="card__cta">${c.chess ? "View project" : "Read case study"} <span aria-hidden="true">→</span></span>
-    </div>
-  </a>`;
-}).join("");
+/* ---------- one numbered sequence, in the original order ---------- */
+const ORDER = ["revel", "nybble", "vdart", "loophole", "codepath", "presstudios", "barber", "tlc", "brittian", "logos", "presflicks", "fullcup", "flyers", "husa", "medical", "stacks"];
+const caseById = Object.fromEntries(CASES.map((c) => [c.id, c]));
+const projectsEl = document.getElementById("projects");
+const indexEl = document.getElementById("index");
+document.getElementById("work-count").textContent = `(${ORDER.length})`;
 
-/* ---------- case studies ---------- */
-const casesEl = document.getElementById("cases");
-CASES.forEach((c, i) => {
+const thumbOf = (id) => {
+  const c = caseById[id];
+  if (c) return c.cover ? A(c.cover) : null;
+  return A(byId[id].shots[0].f);
+};
+
+function caseHTML(c, n) {
   const rows = [];
   const ov = c.overview;
   rows.push(["Overview", `
@@ -293,15 +287,14 @@ CASES.forEach((c, i) => {
     ${ov.audience ? `<p class="cs__note"><b>Audience</b>${ov.audience}</p>` : ""}
     ${c.status ? `<p class="cs__status"><span class="dot" aria-hidden="true"></span>${c.status}</p>` : ""}
     ${c.links ? `<div class="ov__links">${linksHTML(c.links)}</div>` : ""}`]);
-
   if (c.statement) rows.push(["__statement", `<blockquote class="statement"><p>${c.statement}</p><cite>— REVEL brand statement</cite></blockquote>`]);
   if (c.pillars) rows.push(["The Brand", `<div class="pillars">${c.pillars.map(([h, t], k) => `<article class="pillar"><span>${pad(k + 1)}</span><h4>${h}</h4><p>${t}</p></article>`).join("")}</div>`]);
   if (c.challenge) rows.push(["The Challenge", `<p class="ov__lead">${c.challenge.lead}</p>${c.challenge.points ? `<ul class="cs__list">${c.challenge.points.map((t) => `<li>${t}</li>`).join("")}</ul>` : ""}`]);
   if (c.process) rows.push(["The Process", `<ol class="steps">${c.process.map((t) => `<li>${t}</li>`).join("")}</ol>`]);
 
   let solution = "";
-  if (c.apps) solution += `<ul class="apps">${c.apps.map(([t, s, d, repo]) => `<li><a class="app" href="https://github.com/pfrazier2x/${repo}" target="_blank" rel="noopener" data-hover><span class="app__stack">${s}</span><h4>${t}</h4><p>${d}</p><span class="app__go" aria-hidden="true">↗</span></a></li>`).join("")}</ul>`;
-  if (c.clients) solution += `<ul class="clients">${c.clients.map((id) => { const p = byId[id]; const s = p.shots[0]; return `<li><a class="client" href="#${id}" data-hover><div class="client__img${s.dark ? " is-dark" : ""}"><img src="${A(s.f)}" alt="" loading="lazy" decoding="async"></div><span>${p.title}</span><small>${p.role}</small></a></li>`; }).join("")}</ul>`;
+  if (c.apps) solution += `<ul class="apps">${c.apps.map(([t, st, d, repo]) => `<li><a class="app" href="https://github.com/pfrazier2x/${repo}" target="_blank" rel="noopener" data-hover><span class="app__stack">${st}</span><h4>${t}</h4><p>${d}</p><span class="app__go" aria-hidden="true">↗</span></a></li>`).join("")}</ul>`;
+  if (c.clients) solution += `<ul class="clients">${c.clients.map((id) => { const p = byId[id]; const sh = p.shots[0]; return `<li><a class="client" href="#${id}" data-hover><div class="client__img${sh.dark ? " is-dark" : ""}"><img src="${A(sh.f)}" alt="" loading="lazy" decoding="async"></div><span>${p.title}</span><small>${p.role}</small></a></li>`; }).join("")}</ul>`;
   if (c.shots) solution += `<div class="gallery" data-gallery="${c.id}">${c.shots.map(shotHTML).join("")}</div>`;
   if (solution) rows.push([c.id === "revel" ? c.solutionTitle : "The Solution", `${c.id !== "revel" && c.solutionTitle ? `<p class="cs__kicker">${c.solutionTitle}</p>` : ""}${solution}`, true]);
   if (c.impact) rows.push(["The Impact", `<ul class="impact">${c.impact.map((t) => `<li>${t}</li>`).join("")}</ul>`]);
@@ -313,14 +306,14 @@ CASES.forEach((c, i) => {
     return `<div class="cs__row${wide ? " cs__row--wide" : ""}"><h3 class="cs__label"><span>${pad(k)} /</span> ${label}</h3><div class="cs__content">${html}</div></div>`;
   }).join("");
 
-  casesEl.insertAdjacentHTML("beforeend", `
+  return `
     <section class="cs${c.id === "revel" ? " cs--revel" : ""}" id="${c.id}" aria-labelledby="${c.id}-title">
       <div class="project__head">
         <div>
           <div class="project__meta reveal-up"><span class="tag tag--accent">${c.category}</span>${c.year ? `<span class="tag">${c.year}</span>` : ""}</div>
           <h2 class="project__title" id="${c.id}-title"><span class="line"><span class="split">${c.title}</span></span></h2>
         </div>
-        <span class="project__num" data-speed="0.85" aria-hidden="true">${pad(i + 1)}</span>
+        <span class="project__num" data-speed="0.85" aria-hidden="true">${n}</span>
       </div>
       <dl class="facts reveal-up">
         <div><dt>Role</dt><dd>${c.role}</dd></div>
@@ -328,25 +321,17 @@ CASES.forEach((c, i) => {
         <div><dt>Tools</dt><dd>${c.tools.join(", ")}</dd></div>
         <div><dt>Focus</dt><dd>${c.focus.join(" · ")}</dd></div>
       </dl>
+      ${c.chess ? `<div class="cs__chess reveal-up">${chessHTML()}</div>` : ""}
       ${rowsHTML}
-    </section>`);
-});
+    </section>`;
+}
 
-/* ---------- archive: index + projects ---------- */
-const projectsEl = document.getElementById("projects");
-const indexEl = document.getElementById("index");
-document.getElementById("more-count").textContent = `(${pad(PROJECTS.length)})`;
-
-PROJECTS.forEach((p, i) => {
-  const n = pad(i + 1);
-  indexEl.insertAdjacentHTML("beforeend",
-    `<li><a href="#${p.id}" data-preview="${A(p.shots[0].f)}"><span class="index__n">${n}</span><span class="index__t">${p.title}</span><span class="index__c">${p.tag}</span></a></li>`);
-
+function projectHTML(p, n) {
   const head = `
     <div class="project__head">
       <div>
         <div class="project__meta reveal-up"><span class="tag tag--accent">${p.tag}</span><span class="tag">${p.role}</span>${p.year ? `<span class="tag">${p.year}</span>` : ""}</div>
-        <h3 class="project__title project__title--sm"><span class="line"><span class="split">${p.title}</span></span></h3>
+        <h2 class="project__title"><span class="line"><span class="split">${p.title}</span></span></h2>
       </div>
       <span class="project__num" data-speed="0.85" aria-hidden="true">${n}</span>
     </div>`;
@@ -361,22 +346,28 @@ PROJECTS.forEach((p, i) => {
       <p class="ov__lead">${lead}</p>
       ${paras.length || links ? `<div class="ov__body">${paras.map((t) => `<p>${t}</p>`).join("")}${links ? `<div class="ov__links">${links}</div>` : ""}</div>` : ""}
     </div>`;
-
-  if (p.reel) {
-    projectsEl.insertAdjacentHTML("beforeend", `
+  if (p.reel) return `
       <section class="reel" id="${p.id}" aria-label="${p.title}">
         ${head}
         <div class="project__body">${overview}</div>
-        <div class="reel__track" data-gallery="${p.id}">${p.shots.map((s) => `<button type="button" class="reel__item" data-img aria-label="View larger: ${esc(s.a)}"><img src="${A(s.f)}" alt="${esc(s.a)}" loading="lazy" decoding="async"></button>`).join("")}</div>
+        <div class="reel__track" data-gallery="${p.id}">${p.shots.map((sh) => `<button type="button" class="reel__item" data-img aria-label="View larger: ${esc(sh.a)}"><img src="${A(sh.f)}" alt="${esc(sh.a)}" loading="lazy" decoding="async"></button>`).join("")}</div>
         <div class="reel__progress" aria-hidden="true"><i></i></div>
-      </section>`);
-    return;
-  }
-  projectsEl.insertAdjacentHTML("beforeend", `
+      </section>`;
+  return `
     <section class="project" id="${p.id}" aria-label="${p.title}">
       ${head}
       <div class="project__body">${overview}<div class="gallery" data-gallery="${p.id}">${p.shots.map(shotHTML).join("")}</div></div>
-    </section>`);
+    </section>`;
+}
+
+ORDER.forEach((id, i) => {
+  const n = pad(i + 1);
+  const c = caseById[id], p = byId[id];
+  const item = c || p;
+  const thumb = thumbOf(id);
+  indexEl.insertAdjacentHTML("beforeend",
+    `<li><a href="#${id}"${thumb ? ` data-preview="${thumb}"` : ""}><span class="index__n">${n}</span><span class="index__t">${item.title}</span><span class="index__c">${c ? c.category : p.tag}</span></a></li>`);
+  projectsEl.insertAdjacentHTML("beforeend", c ? caseHTML(c, n) : projectHTML(p, n));
 });
 
 /* ---------- tool logos ---------- */
@@ -499,7 +490,7 @@ menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setM
 
 /* ---------- active nav + back-to-top (works without GSAP) ---------- */
 const navLinks = [...document.querySelectorAll("[data-nav]")];
-const sectionFor = { work: ["work", "cases", "more", "projects"], about: ["about"], skills: ["skills"], code: ["code", "certs"], contact: ["contact"] };
+const sectionFor = { work: ["work", "projects"], about: ["about"], skills: ["skills"], code: ["code", "certs"], contact: ["contact"] };
 const watched = Object.entries(sectionFor).flatMap(([nav, ids]) => ids.map((id) => [nav, document.getElementById(id)])).filter(([, el]) => el);
 const setActive = (nav) => navLinks.forEach((a) => {
   const on = a.dataset.nav === nav;
@@ -681,7 +672,6 @@ function initMotion() {
   });
 
   /* selected work cards */
-  gsap.utils.toArray(".card").forEach((card) => gsap.from(card, { y: 60, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: card, start: "top 92%" } }));
 
   /* case study rows */
   gsap.utils.toArray(".cs__row, .facts, .statement").forEach((row) => gsap.from(row, { y: 40, opacity: 0, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: row, start: "top 90%" } }));
@@ -782,6 +772,7 @@ function initPointer() {
   /* archive index hover preview */
   document.querySelectorAll(".index a").forEach((a) => {
     a.addEventListener("pointerenter", () => {
+      if (!a.dataset.preview) return;
       previewImg.src = a.dataset.preview;
       gsap.to(preview, { opacity: 1, scale: 1, rotate: gsap.utils.random(-5, 5), duration: 0.5, ease: "power3.out", overwrite: true });
     });
