@@ -631,3 +631,11 @@ button.reel__item{width:clamp(220px,24vw,380px)}
   .hero__slab{clip-path:polygon(0 calc(100% - 300px),100% calc(100% - 440px),100% 100%,0 100%)}
   .hero__badge{left:auto;right:-12px;top:30%;width:96px;height:96px}
 }
+
+/* v19 — larger portrait on desktop: fills the hero height, centered in the black panel */
+@media (min-width:1025px){
+  .hero__media{height:calc(100% - 84px);right:clamp(8px,4vw,90px)}
+  .hero__frame{height:100%;max-width:46vw}
+  .hero__img{object-position:bottom center}
+  .hero__badge{left:-40px;top:58%}
+}
