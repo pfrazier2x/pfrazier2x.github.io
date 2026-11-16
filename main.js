@@ -288,13 +288,13 @@ function caseHTML(c, n) {
     ${c.status ? `<p class="cs__status"><span class="dot" aria-hidden="true"></span>${c.status}</p>` : ""}
     ${c.links ? `<div class="ov__links">${linksHTML(c.links)}</div>` : ""}`]);
   if (c.statement) rows.push(["__statement", `<blockquote class="statement"><p>${c.statement}</p><cite>— REVEL brand statement</cite></blockquote>`]);
-  if (c.pillars) rows.push(["The Brand", `<div class="pillars">${c.pillars.map(([h, t], k) => `<article class="pillar"><span>${pad(k + 1)}</span><h4>${h}</h4><p>${t}</p></article>`).join("")}</div>`]);
+  if (c.pillars) rows.push(["The Brand", `<div class="pillars">${c.pillars.map(([h, t], k) => `<article class="pillar tilt"><span>${pad(k + 1)}</span><h4>${h}</h4><p>${t}</p></article>`).join("")}</div>`]);
   if (c.challenge) rows.push(["The Challenge", `<p class="ov__lead">${c.challenge.lead}</p>${c.challenge.points ? `<ul class="cs__list">${c.challenge.points.map((t) => `<li>${t}</li>`).join("")}</ul>` : ""}`]);
   if (c.process) rows.push(["The Process", `<ol class="steps">${c.process.map((t) => `<li>${t}</li>`).join("")}</ol>`]);
 
   let solution = "";
-  if (c.apps) solution += `<ul class="apps">${c.apps.map(([t, st, d, repo]) => `<li><a class="app" href="https://github.com/pfrazier2x/${repo}" target="_blank" rel="noopener" data-hover><span class="app__stack">${st}</span><h4>${t}</h4><p>${d}</p><span class="app__go" aria-hidden="true">↗</span></a></li>`).join("")}</ul>`;
-  if (c.clients) solution += `<ul class="clients">${c.clients.map((id) => { const p = byId[id]; const sh = p.shots[0]; return `<li><a class="client" href="#${id}" data-hover><div class="client__img${sh.dark ? " is-dark" : ""}"><img src="${A(sh.f)}" alt="" loading="lazy" decoding="async"></div><span>${p.title}</span><small>${p.role}</small></a></li>`; }).join("")}</ul>`;
+  if (c.apps) solution += `<ul class="apps">${c.apps.map(([t, st, d, repo]) => `<li><a class="app tilt" href="https://github.com/pfrazier2x/${repo}" target="_blank" rel="noopener" data-hover><span class="app__stack">${st}</span><h4>${t}</h4><p>${d}</p><span class="app__go" aria-hidden="true">↗</span></a></li>`).join("")}</ul>`;
+  if (c.clients) solution += `<ul class="clients">${c.clients.map((id) => { const p = byId[id]; const sh = p.shots[0]; return `<li><a class="client tilt" href="#${id}" data-hover><div class="client__img${sh.dark ? " is-dark" : ""}"><img src="${A(sh.f)}" alt="" loading="lazy" decoding="async"></div><span>${p.title}</span><small>${p.role}</small></a></li>`; }).join("")}</ul>`;
   if (c.shots) solution += `<div class="gallery" data-gallery="${c.id}">${c.shots.map(shotHTML).join("")}</div>`;
   if (solution) rows.push([c.id === "revel" ? c.solutionTitle : "The Solution", `${c.id !== "revel" && c.solutionTitle ? `<p class="cs__kicker">${c.solutionTitle}</p>` : ""}${solution}`, true]);
   if (c.impact) rows.push(["The Impact", `<ul class="impact">${c.impact.map((t) => `<li>${t}</li>`).join("")}</ul>`]);
@@ -577,6 +577,7 @@ function initMotion() {
   if (window.Lenis) {
     lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
     lenis.on("scroll", ScrollTrigger.update);
+    window.__lenis = lenis;
     gsap.ticker.add((t) => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
   }
@@ -684,7 +685,6 @@ function initMotion() {
   /* skills */
   gsap.from(".logo", { y: 30, opacity: 0, stagger: { each: 0.04, grid: "auto", from: "start" }, duration: 0.7, ease: "power3.out", scrollTrigger: { trigger: ".logos", start: "top 88%" } });
   gsap.fromTo(".logo .ico", { scale: 0, rotate: -90 }, { scale: 1, rotate: 0, stagger: 0.04, duration: 0.8, ease: "back.out(2)", clearProps: "transform", scrollTrigger: { trigger: ".logos", start: "top 88%" } });
-  gsap.from(".xp li", { y: 20, opacity: 0, stagger: 0.05, duration: 0.7, ease: "power3.out", scrollTrigger: { trigger: ".xp", start: "top 90%" } });
   gsap.utils.toArray(".kit__col").forEach((col) => gsap.from(col.querySelectorAll(".chips li"), { y: 16, opacity: 0, stagger: 0.03, duration: 0.5, ease: "power3.out", scrollTrigger: { trigger: col, start: "top 92%" } }));
 
   /* counters — HTML already holds the real values; animate from 0 on enter */
