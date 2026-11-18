@@ -160,11 +160,11 @@ const CASES = [
   {
     id: "codepath", title: "CodePath Projects", category: "AI & Android Development", year: "2026",
     role: "Developer",
-    tools: ["Kotlin", "Android Studio", "Python", "Streamlit", "REST APIs (TMDB)"],
+    tools: ["Kotlin", "Android Studio", "Python", "Streamlit", "REST APIs (TMDB)", "RAG", "pytest", "Claude API (optional)"],
     focus: ["Python Development", "Streamlit", "AI Application Development", "Kotlin", "Android Studio", "API Integration"],
     cover: "cp-flixsterplus", coverFit: "contain", coverDark: true, coverAlt: "Flixster+ Android app showing a list of popular movies",
     overview: {
-      lead: "Native Android apps in Kotlin and AI-focused Python apps, built through CodePath's Android and AI110 courses.",
+      lead: "Native Android apps in Kotlin and AI-focused Python apps — including VibeFinder 2.0, an AI agent with retrieval, self-checks and guardrails — built through CodePath's Android and AI110 courses.",
       body: ["Each project is on GitHub with a README and walkthrough."],
     },
     challenge: {
@@ -173,9 +173,11 @@ const CASES = [
         "Connecting to The Movie Database API, parsing JSON and building correct poster URLs for Glide",
         "Learning how RecyclerView, adapters and data models work together",
         "Debugging an AI-generated game and proving the fixes with automated tests",
+        "Making AI recommendations trustworthy — no invented songs, answers grounded in real data, and guardrails against prompt injection",
       ],
     },
     apps: [
+      ["VibeFinder 2.0", "Python · RAG agent · Claude (optional)", "Turns plain-English requests into ranked, explained song picks — with self-checks, guardrails, 24 unit tests and a 13-case evaluation harness.", "applied-ai-system-project"],
       ["Flixster+", "Kotlin · TMDB API", "Browse popular movies, then open a details screen with poster, overview, rating, release date and popularity.", "FlixsterPlus"],
       ["Flixster", "Kotlin · TMDB API", "Now-playing movies in a scrollable RecyclerView with Glide-loaded posters.", "Flixster"],
       ["Wishlist", "Kotlin", "Add items with a name, price and URL to a scrollable, dynamically updating wishlist.", "Wishlist"],
@@ -184,6 +186,7 @@ const CASES = [
       ["Game Glitch Investigator", "Python · Streamlit", "Found and fixed bugs in an AI-generated guessing game, backed by automated tests.", "ai110-module1show-gameglitchinvestigator-starter"],
       ["VibeFinder 1.0", "Python", "Content-based music recommender that scores songs by genre, mood and energy.", "ai110-module3show-musicrecommendersimulation-starter"],
     ],
+    pipeline: { title: "VibeFinder 2.0 agent loop", steps: ["Guard", "Parse", "Validate", "Retrieve", "Generate", "Self-check", "Confidence"], note: "Every request is screened, grounded in a knowledge base, checked against its own output (and repaired if needed), then scored for confidence." },
     solutionTitle: "Android walkthroughs",
     shots: [
       { f: "cp-flixsterplus", a: "Flixster+ app: popular movies list", r: "480/717", fit: "contain", dark: true, size: "quarter" },
@@ -192,7 +195,8 @@ const CASES = [
       { f: "cp-wordle", a: "Wordle app showing three guesses and the answer", r: "480/717", fit: "contain", dark: true, size: "quarter" },
     ],
     impact: [
-      "7 working projects published on GitHub — 4 Android apps and 3 Python apps",
+      "8 working projects published on GitHub — 4 Android apps and 4 Python apps",
+      "Built an AI agent with RAG, self-checks and guardrails, backed by 24 unit tests and a 13-case evaluation harness",
       "Hands-on with REST APIs, RecyclerView, Glide, Streamlit and automated testing",
     ],
     links: [{ href: "https://github.com/pfrazier2x", text: "All repos on GitHub" }],
@@ -293,6 +297,7 @@ function caseHTML(c, n) {
   if (c.process) rows.push(["The Process", `<ol class="steps">${c.process.map((t) => `<li>${t}</li>`).join("")}</ol>`]);
 
   let solution = "";
+  if (c.pipeline) solution += `<figure class="pipeline"><figcaption>${c.pipeline.title}</figcaption><ol>${c.pipeline.steps.map((t, k) => `<li><span>${pad(k + 1)}</span>${t}</li>`).join("")}</ol><p>${c.pipeline.note}</p></figure>`;
   if (c.apps) solution += `<ul class="apps">${c.apps.map(([t, st, d, repo]) => `<li><a class="app tilt" href="https://github.com/pfrazier2x/${repo}" target="_blank" rel="noopener" data-hover><span class="app__stack">${st}</span><h4>${t}</h4><p>${d}</p><span class="app__go" aria-hidden="true">↗</span></a></li>`).join("")}</ul>`;
   if (c.clients) solution += `<ul class="clients">${c.clients.map((id) => { const p = byId[id]; const sh = p.shots[0]; return `<li><a class="client tilt" href="#${id}" data-hover><div class="client__img${sh.dark ? " is-dark" : ""}"><img src="${A(sh.f)}" alt="" loading="lazy" decoding="async"></div><span>${p.title}</span><small>${p.role}</small></a></li>`; }).join("")}</ul>`;
   if (c.shots) solution += `<div class="gallery" data-gallery="${c.id}">${c.shots.map(shotHTML).join("")}</div>`;
@@ -406,9 +411,10 @@ document.getElementById("kit").innerHTML = KIT.map(([title, keys, learning]) => 
 /* ---------- GitHub repos (live, with a built-in fallback) ---------- */
 const GH_USER = "pfrazier2x";
 const GH_SKIP = ["readme.txt", "pfrazier2x.github.io"];
-const GH_FEATURED = "FlixsterPlus";
+const GH_FEATURED = "applied-ai-system-project";
 const LANG_COLORS = { Kotlin: "#A97BFF", Python: "#3572A5", HTML: "#E34C26", JavaScript: "#F1E05A", Java: "#B07219", "C++": "#F34B7D", TypeScript: "#3178C6", CSS: "#563D7C" };
 const NICE = {
+  "applied-ai-system-project": ["VibeFinder 2.0", "AI music-recommendation agent with RAG, self-checks, guardrails, 24 unit tests and an evaluation harness."],
   FlixsterPlus: ["Flixster+", "Android app that shows popular movies from The Movie Database API with detailed movie info."],
   Flixster: ["Flixster", "Android movie-browsing app using The Movie Database API."],
   Wishlist: ["Wishlist", "Android wishlist app built in Kotlin."],
@@ -421,6 +427,7 @@ const NICE = {
   "ai110-module1show-gameglitchinvestigator-starter": ["Game Glitch Investigator", "AI110: debugged an AI-generated Streamlit game with tests."],
 };
 const FALLBACK_REPOS = [
+  ["applied-ai-system-project", "Python", "2026-11-17"],
   ["ai110-module3show-musicrecommendersimulation-starter", "Python", "2026-11-04", true],
   ["ai110-module2show-pawpal-starter", "Python", "2026-10-13", true],
   ["ai110-module1show-gameglitchinvestigator-starter", "Python", "2026-10-08", true],
